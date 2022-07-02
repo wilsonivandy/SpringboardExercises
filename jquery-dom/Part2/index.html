@@ -1,0 +1,39 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .form {
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <form action="">
+      Moving Ratings!
+      <input type="text" class="form" id="Title" placeholder="Title" />
+      <input type="text" class="form" id="Rating" placeholder="Rating" />
+      <button id="btn">Submit</button>
+    </form>
+    <ol></ol>
+  </body>
+  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+  <script>
+    $("#btn").on("click", function (e) {
+      e.preventDefault();
+      let btn = $("<button></button>").text("Remove");
+      $("ol").append(
+        `<li class = "li"> <span class ="form">Title: </span> ${$(
+          "#Title"
+        ).val()}, <span class ="form">Rating: </span> ${$(
+          "#Rating"
+        ).val()} <button class = "removeBtn">Remove</button> </li>`
+      );
+      $(".removeBtn").on("click", function () {
+        $(this).closest(".li").remove();
+      });
+    });
+  </script>
+</html>
