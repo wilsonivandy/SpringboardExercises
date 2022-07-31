@@ -1,0 +1,16 @@
+{% extends 'base.html' %} {% block title %} Madlibs Form {% endblock %} {% block
+body %}
+<h1>Madlibs</h1>
+<h2>You have chosen {{ chosenStory }}</h2>
+<p>Submit button will only appear with valid entries</p>
+<form action="/submit/{{chosenStory}}">
+  {% for q in questions %}
+  <div id="question">
+    <label for="{{q}}">{{q}}</label>
+    <input class="inputs" id="{{q}}" type="text" name="{{q}}" />
+  </div>
+  {% endfor %}
+  <button id="submitBtn" class="hide">Submit</button>
+</form>
+
+{% endblock %}

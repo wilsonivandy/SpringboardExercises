@@ -1,0 +1,43 @@
+#question {
+    margin: 30px;
+}
+
+.dropButton {
+    background-color: lightgray;
+    color: white;
+    padding: 15px;
+    font-size: 15px;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.templates {
+    display: none;
+    position: absolute;
+    background-color: white;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.templates a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown:hover .templates {
+    display: block;
+}
+
+.templates a:hover {
+    background-color: #ddd;
+}
+
+.hide {
+    display: none;
+}
