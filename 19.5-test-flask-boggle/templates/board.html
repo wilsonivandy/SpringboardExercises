@@ -1,0 +1,24 @@
+{% extends 'base.html' %} {% block title %} Board Page {% endblock %} {% block
+body %}
+<h1>Let's Play Boggle!</h1>
+<ul style="list-style: none">
+  {% for row in board %}
+  <li>{{row}}</li>
+  {% endfor %}
+</ul>
+<form id="guessForm">
+  <label for="guess">Guess The Word!</label>
+  <input type="text" name="guess" id="guess" />
+  <button id="guessSubmitBtn">Submit!</button>
+</form>
+<h3 id="time">Time Left:</h3>
+<h3 id="respond">Response is:</h3>
+<h3 id="score">Score is:</h3>
+<h3 id="highScore">High Score is {{maxScore}} out of {{numGames}} games!</h3>
+<form action="/play">
+  <button id="play-again" class="hide">Play Again!</button>
+</form>
+<form action="/">
+  <button id="reset-game" class="hide">Reset Game!</button>
+</form>
+{% endblock %}

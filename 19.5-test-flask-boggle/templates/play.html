@@ -1,0 +1,9 @@
+{% extends 'base.html' %} {% block title %} Home Page {% endblock %} {% block
+body %}
+<h1>Let's Play Boggle!</h1>
+<form action="/play">
+  <label for="boardSize">Insert Board Size </label>
+  <input type="text" name="boardSize" id="boardSize" />
+  <button id="start_game">Start!</button>
+</form>
+{% endblock %}
