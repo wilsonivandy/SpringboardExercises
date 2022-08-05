@@ -16,13 +16,11 @@ def home():
     """ Portal to enter size of boggle board and set sessions """
     session['scores'] = []
     session['submissions'] = []
-    size = 0
     return render_template("play.html")
 
 
 @app.route('/play')
 def portal():
-    print(session['scores'])
     scores = session['scores']
     if len(scores) == 0:
         session['boardSize'] = request.args.get('boardSize')
@@ -42,10 +40,7 @@ def portal():
 def submit_guess():
     board = session['board']
     submissions = session['submissions']
-    response = request.json.get('guess')
-    #response = request.json
-    # print("***************")
-    # print(response)
+    response = request.json["guess"]
     check_board = boggle_game.check_valid_word(board, response)
     check_words = response in boggle_game.words
     result = {}

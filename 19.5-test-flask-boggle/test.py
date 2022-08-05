@@ -27,29 +27,37 @@ class FlaskTests(TestCase):
 
     def test_portal(self):
         with app.test_client() as client:
+            client.get('/')
             with client.session_transaction() as change_session:
                 change_session['scores'] = ['5', '6']
                 change_session['boardSize'] = '5'
 
-                resp = client.get('/play')
-                html = resp.get_data(as_text=True)
-                self.assertEqual(resp.status_code, 200)
-                self.assertIn(
-                    '<label for="guess">Guess The Word!</label>', html)
+            resp = client.get('/play')
+            html = resp.get_data(as_text=True)
+            self.assertEqual(resp.status_code, 200)
+            self.assertIn(
+                '<label for="guess">Guess The Word!</label>', html)
 
-    # def test_submit(self):
-    #     newGame = Boggle()
-    #     board = newGame.make_board(5)
-    #     with app.test_client() as client:
-    #         with client.session_transaction() as change_session:
-    #             change_session['board'] = board
-    #             change_session['submissions'] = []
+    def test_submit(self):
+        newGame = Boggle()
+        board = newGame.make_board(5)
+        with app.test_client() as client:
+            with client.session_transaction() as change_session:
+                change_session['board'] = board
+                change_session['submissions'] = []
 
-    #         resp = client.post('/submit-guess',
-    #                            data={'guess': 'wilson'},
-    #                            content_type='application/json')
-    #         res = resp.get_data(as_text=True)
-    #         print(res)
+            resp = client.post('/submit-guess',
+                               json={'guess': 'wilson'})
+            self.assertEqual(resp.status_code, 200)
+            assert resp.json["result"] == 'not-word'
 
-    #         self.assertEqual(resp.status_code, 200)
-    #         self.assertEqual(res, {"guess": "not-in-board"})
+    def test_finish(self):
+        with app.test_client() as client:
+            with client.session_transaction() as change_session:
+                change_session['scores'] = [5, 6, 7, 8, 5]
+
+            resp = client.post('/finish-guess',
+                               json={'score': '9'})
+            self.assertEqual(resp.status_code, 200)
+            self.assertEqual(resp.json["score"],
+                             [5, 6, 7, 8, 5, 9])
