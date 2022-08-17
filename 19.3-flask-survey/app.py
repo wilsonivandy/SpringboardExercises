@@ -9,12 +9,14 @@ debug = DebugToolbarExtension(app)
 
 @app.route('/')
 def home():
-    return render_template('home.html', title = satisfaction_survey.title, instructions = satisfaction_survey.instructions)
+    return render_template('home.html', title=satisfaction_survey.title, instructions=satisfaction_survey.instructions)
+
 
 @app.route('/start_survey', methods=["POST"])
 def start_survey():
     session["responses"] = []
     return redirect('/questions/0')
+
 
 @app.route('/questions/<int:number>')
 def question(number):
@@ -24,7 +26,8 @@ def question(number):
         flash("You are trying to access an invalid question!")
         return redirect(f'/questions/{len(session["responses"])}')
     else:
-        return render_template("survey.html", question = satisfaction_survey.questions[number], currQuestion = number, answered = len(session["responses"]))
+        return render_template("survey.html", question=satisfaction_survey.questions[number], currQuestion=number, answered=len(session["responses"]))
+
 
 @app.route('/answer', methods=["POST"])
 def add_Response():
@@ -35,8 +38,9 @@ def add_Response():
     nextIndex = len(session["responses"])
     if len(satisfaction_survey.questions) == nextIndex:
         return redirect('/thankyou')
-    else: 
+    else:
         return redirect(f'/questions/{nextIndex}')
+
 
 @app.route('/thankyou')
 def thankyou():
