@@ -18,6 +18,9 @@ CREATE TABLE songs
   producers TEXT[] NOT NULL
 );
 
+
+CREATE TABLE artists
+
 INSERT INTO songs
   (title, duration_in_seconds, release_date, artists, album, producers)
 VALUES
@@ -32,4 +35,4 @@ VALUES
   ('Complicated', 244, '05-14-2002', '{"Avril Lavigne"}', 'Let Go', '{"The Matrix"}'),
   ('Say My Name', 240, '11-07-1999', '{"Destiny''s Child"}', 'The Writing''s on the Wall', '{"Darkchild"}');
 
-  CREATE INDEX title_index ON songs(title);
+CREATE INDEX title_index ON songs(title);

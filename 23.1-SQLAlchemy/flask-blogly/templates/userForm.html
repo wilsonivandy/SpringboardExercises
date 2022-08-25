@@ -1,0 +1,27 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Create a User</title>
+    <link rel="stylesheet" href="/static/app.css" />
+  </head>
+  <body>
+    <h1>Create a User!</h1>
+    <form action="/users/new" method="POST">
+      <div>
+        <label for="FirstName">First Name</label>
+        <input type="text" name="FirstName" />
+      </div>
+      <div>
+        <label for="LastName">Last Name</label>
+        <input type="text" name="LastName" />
+      </div>
+      <div>
+        <label for="ImageURL">Image URL</label>
+        <input type="text" name="ImageURL" />
+      </div>
+      <button>Create User</button>
+    </form>
+  </body>
+</html>
