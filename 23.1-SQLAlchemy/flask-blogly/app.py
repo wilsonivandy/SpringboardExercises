@@ -3,8 +3,9 @@
 from contextlib import redirect_stderr
 from crypt import methods
 from email.mime import image
+from hashlib import new
 from flask import Flask, render_template, session, request, redirect
-from models import db, connect_db, User, Post
+from models import db, connect_db, User, Post, Tag, PostTag
 from flask_debugtoolbar import DebugToolbarExtension
 
 app = Flask(__name__)
@@ -22,13 +23,6 @@ db.create_all()
 
 @app.route('/users')
 def home():
-    # user1 = User(first_name='Wilson', last_name='Natan',
-    #              image_url='https://google.com')
-    # user2 = User(first_name='Samantha', last_name='Gabriella',
-    #              image_url='https://wikipedia.com')
-    # db.session.add(user1)
-    # db.session.add(user2)
-    # db.session.commit()
     users = User.query.all()
     return render_template('home.html', users=users)
 
@@ -76,16 +70,20 @@ def userEditProcess(userId):
 @app.route("/users/<int:userId>/posts/new")
 def addPost(userId):
     user = User.query.get(userId)
-    return render_template('postForm.html', user=user)
+    tags = Tag.query.all()
+    return render_template('postForm.html', user=user, tags=tags)
 
 
 @app.route("/users/<int:userId>/posts/new", methods=['POST'])
 def addPostProcess(userId):
     title = request.form['Title']
+    tags = Tag.query.all()
     content = request.form['PostContent']
-
     newPost = Post(title=title,
                    content=content, user_id=userId)
+    for tag in tags:
+        if request.form.get(f'{tag.name}'):
+            newPost.tags.append(tag)
     db.session.add(newPost)
     db.session.commit()
     return redirect(f'/users/{userId}')
@@ -134,3 +132,43 @@ def reset():
     User.query.delete()
     db.session.commit()
     return redirect('/users')
+
+
+@app.route("/tags")
+def getTags():
+    tags = Tag.query.all()
+    return render_template('allTags.html', tags=tags)
+
+
+@app.route("/tags/new")
+def addTags():
+    return render_template('tagForm.html')
+
+
+@app.route("/tags/new", methods=['POST'])
+def addTagsProcess():
+    name = request.form['Name']
+    newTag = Tag(name=name)
+    db.session.add(newTag)
+    db.session.commit()
+    return redirect("/tags")
+
+
+@app.route("/tags/<int:tagId>")
+def tagInfo(tagId):
+    tag = Tag.query.get(tagId)
+    return render_template("tagInfo.html", tag=tag)
+
+
+@app.route("/tags/<int:tagId>/edit")
+def tagEdit(tagId):
+    tag = Tag.query.get(tagId)
+    return render_template('editTag.html', tag=tag)
+
+
+@app.route("/tags/<int:tagId>/edit", methods=['POST'])
+def tagEditProcess(tagId):
+    tag = Tag.query.get(tagId)
+    tag.name = request.form['Name']
+    db.session.commit()
+    return redirect(f'/tags')

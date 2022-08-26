@@ -17,6 +17,17 @@
         <label for="PostContent">Post Content</label>
         <input type="text" name="PostContent" />
       </div>
+      <h2>Available Tags:</h2>
+      <ul>
+        {% for tag in tags %}
+        <li>
+          <div>
+            <label for="{{tag.name}}">{{tag.name}}</label>
+            <input type="checkbox" name="{{tag.name}}" />
+          </div>
+        </li>
+        {% endfor %}
+      </ul>
       <button>Add</button>
     </form>
     <form action="/users/{{user.id}}">
