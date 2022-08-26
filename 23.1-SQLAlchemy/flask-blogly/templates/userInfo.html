@@ -17,5 +17,14 @@
     <form action="/users/{{user.id}}/delete">
       <button>Delete</button>
     </form>
+    <h2>Posts</h2>
+    <ul>
+      {% for p in user.posts %}
+      <li><a href="/posts/{{p.id}}">{{p.title}}</a></li>
+      {% endfor %}
+    </ul>
+    <form action="/users/{{user.id}}/posts/new">
+      <button>Add Post</button>
+    </form>
   </body>
 </html>

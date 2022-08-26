@@ -1,0 +1,23 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>User Info</title>
+  </head>
+  <body>
+    <div>
+      <h1>Title: {{post.title}}</h1>
+      <p>Content: {{post.content}}</p>
+    </div>
+    <form action="/users/{{user.id}}">
+      <button>Cancel</button>
+    </form>
+    <form action="/posts/{{post.id}}/edit">
+      <button>Edit</button>
+    </form>
+    <form action="/posts/{{post.id}}/delete">
+      <button>Delete</button>
+    </form>
+  </body>
+</html>
