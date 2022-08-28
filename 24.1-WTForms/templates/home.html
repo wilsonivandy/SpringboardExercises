@@ -1,0 +1,48 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home Page</title>
+    <link rel="stylesheet" href="/static/app.css" />
+    <!-- Latest compiled and minified CSS -->
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+    />
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  </head>
+  <body>
+    <div class="row pets-listing" style="margin: 20px">
+      {% for pet in pets %}
+      <div
+        style="
+          width: 30vw;
+          display: flex;
+          flex-direction: row;
+          flex-wrap: wrap;
+          justify-content: flex-start;
+          align-content: flex-start;
+        "
+      >
+        <img class="img-thumbnail" src="{{pet.photo_url}}" alt="Cat Picture" />
+        <p>{{pet.name}}</p>
+        <p>
+          Pet is<b
+            >{% if pet.available == True %} available! {% else %} not available!
+            {% endif %}</b
+          >
+        </p>
+        <a class="btn btn-primary" href="/{{pet.id}}">More Info</a>{% endfor %}
+      </div>
+      <form action="/add" style="margin-top: 10px">
+        <button>Add a Pet</button>
+      </form>
+    </div>
+  </body>
+</html>
