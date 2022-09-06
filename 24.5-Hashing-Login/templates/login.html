@@ -1,0 +1,15 @@
+{% extends 'base.html' %} {% block title %} Test Login {% endblock %} {% block
+body %}
+<h1>Login!</h1>
+<h2>{% for msg in get_flashed_messages() %} {{msg}} {% endfor %}</h2>
+<form action="/login" method="POST">
+  {{ form.hidden_tag() }} {% for field in form if field.widget.input_type !=
+  'hidden'%} {{ field.label }} {{ field(class="form-control") }} {% if
+  field.errors %} {% for error in field.errors %} {{ error }} {% endfor %} {%
+  endif %} {% endfor %}
+  <button>Submit</button>
+</form>
+<form action="/register">
+  <button>Register</button>
+</form>
+{% endblock %}

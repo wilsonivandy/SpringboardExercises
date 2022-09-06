@@ -1,0 +1,38 @@
+{% extends 'base.html' %} {% block title %} Test Details {% endblock %} {% block
+body %}
+<h1>Details!</h1>
+<p>Username = {{user.username}}</p>
+<p>First Name = {{user.first_name}}</p>
+<p>Last Name = {{user.last_name}}</p>
+<p>Email = {{user.email}}</p>
+<h1>Feedbacks:</h1>
+<ul>
+  {% for feedback in user.feedbacks %}
+  <li style="display: inline">
+    {{feedback.id}} - {{feedback.title}} - {{feedback.content}}
+    <form action="/feedback/{{feedback.id}}/update" method="POST">
+      <button>Edit Feedback</button>
+    </form>
+    <form action="/feedback/{{feedback.id}}/delete" method="POST">
+      <button>Delete Feedback</button>
+    </form>
+  </li>
+  {% endfor %}
+</ul>
+<form action="{{ url_for('secret', username= user.username)}}" method="POST">
+  {{ form.hidden_tag() }} {% for field in form if field.widget.input_type !=
+  'hidden'%} {{ field.label }} {{ field(class="form-control") }} {% if
+  field.errors %} {% for error in field.errors %} {{ error }} {% endfor %} {%
+  endif %} {% endfor %}
+  <button>Add Feedback</button>
+</form>
+<form action="/register">
+  <button>Register</button>
+</form>
+<form action="/users/${user.username}/delete" method="POST">
+  <button>Delete Account</button>
+</form>
+<form action="/logout">
+  <button>Logout</button>
+</form>
+{% endblock %}
