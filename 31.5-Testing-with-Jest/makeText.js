@@ -41,6 +41,6 @@ if (method == "file") {
     getTextURL(path);
 } else {
     console.error('Unknown method')
-    process.exit(2);3
+    process.exit(2);
 }
 
