@@ -29,6 +29,20 @@ class Customer {
     return results.rows.map(c => new Customer(c));
   }
 
+  /** find all customers that match first name query. */
+  static async queryCustomers(query) {
+    const results = await db.query(
+      `SELECT id, 
+         first_name AS "firstName",  
+         last_name AS "lastName", 
+         phone, 
+         notes 
+        FROM customers WHERE first_name = $1`,
+      [query]
+    );
+    return results.rows.map(c => new Customer(c));
+  }
+
   /** get a customer by ID. */
 
   static async get(id) {
@@ -51,6 +65,12 @@ class Customer {
     }
 
     return new Customer(customer);
+  }
+
+  /** get full name for this customer. */
+  
+  get fullName() {
+    return `${this.firstName} ${this.lastName}`;
   }
 
   /** get all reservations for this customer. */
