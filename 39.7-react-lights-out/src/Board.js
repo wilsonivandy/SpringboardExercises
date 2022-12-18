@@ -45,7 +45,15 @@ function Board({ nrows = 5, ncols = 5, chanceLightStartsOn = 0.5 }) {
   }
 
   function hasWon() {
-    return board.every(row => row.every(cell => !cell));
+    let wonYet = true;
+    for(let i=0; i < nrows ; i++) {
+      for(let j=0; j < ncols ; j++) {
+        if ((board[i])[j] === true) {
+          wonYet = false;
+        }
+      }
+    }
+    return wonYet;
   }
 
   function flipCellsAround(coord) {
