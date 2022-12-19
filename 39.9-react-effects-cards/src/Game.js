@@ -8,21 +8,6 @@ function Game() {
     const [cards, setCards] = useState([]);
     const [autoDraw, setAutoDraw] = useState(false);
 
-    // async function addCard(deckId) {
-    //     try {
-    //         let newDraw = await axios.get(`https://deckofcardsapi.com/api/deck/${deckId}/draw/`)
-            
-    //         if (newDraw.data.remaining === 0) {
-    //             throw new Error("No cards remaining")
-    //         }
-
-    //         let newCard = {id : newDraw.data.cards[0].code, image : newDraw.data.cards[0].image}
-    //         setCards(cards => [...cards, newCard]);
-    //     } catch(err) {
-    //         alert(err);
-    //     }
-    // }
-
     useEffect(() => {
         async function fetchDeck() {
             
