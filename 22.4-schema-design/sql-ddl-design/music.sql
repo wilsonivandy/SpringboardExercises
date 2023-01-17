@@ -87,5 +87,6 @@ VALUES
   ('Moves Like Jagger', 201, 8, 8),
   ('Complicated', 244,9, 9),
   ('Say My Name', 240, 10, 10);
+  --
 
 -- CREATE INDEX title_index ON songs(title);
